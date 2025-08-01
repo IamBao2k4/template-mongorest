@@ -1,0 +1,28 @@
+{
+  "tweets-group-activities": {},
+  "get-list": {
+    "headers": [],
+    "params": [],
+    "body": [],
+    "validate": [
+      {
+        "notification": {},
+        "response": {
+          "_id": "687df74efd278983cc3c3bd3",
+          "title": "tweets-group-activities ",
+          "entity": "mge-tweet-comment",
+          "path_file": "json/response/687df74efd278983cc3c3bd3.json"
+        },
+        "query_validate": {
+          "combinator": "and",
+          "rules": [],
+          "id": "5498baeb-07c8-44d8-9221-4497cc255508"
+        },
+        "list_validate": [],
+        "custom_filter": {
+          "rules": []
+        }
+      }
+    ]
+  }
+}

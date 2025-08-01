@@ -1,0 +1,52 @@
+{
+  "_id": "6773bd62ab2649a80d75bced",
+  "title": "unlike",
+  "outputEntity": [
+    "676a2762dedfcf1bf1c55abf"
+  ],
+  "note": "",
+  "method": "put",
+  "locale": null,
+  "locale_id": null,
+  "tenant_id": "674028d2611a654e763a73e8",
+  "cache_time": "",
+  "categories": [],
+  "documents": [],
+  "postQueryAdvance": "",
+  "preQueryAdvance": "",
+  "queryAdvance": "{\n  \"is_waiting_unlike\": \"true\",\n  \"is_waiting_like\": \"false\"\n}\n",
+  "restricted": [
+    {
+      "key": "entity_id",
+      "value": "entity_id"
+    },
+    {
+      "key": "entity_name",
+      "value": "entity_name"
+    },
+    {
+      "key": "social_group",
+      "value": "social_group"
+    },
+    {
+      "key": "_id",
+      "value": "_id"
+    },
+    {
+      "key": "created_by",
+      "value": "created_by"
+    },
+    {
+      "key": "updated_by",
+      "value": "updated_by"
+    },
+    {
+      "key": "created_at",
+      "value": "created_at"
+    },
+    {
+      "key": "updated_at",
+      "value": "updated_at"
+    }
+  ]
+}

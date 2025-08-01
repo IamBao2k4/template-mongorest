@@ -1,0 +1,17 @@
+{
+  "_id": "6880662c4af07393145d98c8",
+  "title": "is liked entity: false",
+  "note": "",
+  "entity": [
+    "676a2762dedfcf1bf1c55abf"
+  ],
+  "categories": [],
+  "advance": "[\n  {\n    \"$facet\": {\n      \"matched\": [\n        { \"$match\": { \"entity_id\": \"@param:tweet_id\" } }\n      ]\n    }\n  },\n  {\n    \"$project\": {\n      \"result\": {\n       \"$cond\": {\n          \"if\": { \"$gt\": [{ \"$size\": \"$matched\" }, 0] },\n          \"then\": [],\n          \"else\": [{ \"result\": false }]\n        }\n      }\n    }\n  },\n  {\n    \"$unwind\": \"$result\"\n  }\n]\n",
+  "tenant_id": "674028d2611a654e763a73e8",
+  "params": [
+    {
+      "value": "tweet_id",
+      "key": "tweet_id"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "_id": "685e0261b706fe522979fbcf",
+  "title": "submit essay exam",
+  "note": "",
+  "cache_time": "",
+  "method": "post",
+  "outputEntity": [
+    "6752cbec65017d942f7595dc"
+  ],
+  "categories": [],
+  "queryAdvance": "{\r\n  \"exam\": \"@param:exam_id\",\r\n  \"status\": \"finished\",\r\n  \"user_essay_file\":0,\r\n  \"user_essay_content\":0\r\n}\r\n",
+  "preQueryAdvance": "",
+  "postQueryAdvance": "",
+  "restricted": [
+    {
+      "key": "exam",
+      "value": "exam"
+    },
+    {
+      "key": "status",
+      "value": "status"
+    },
+    {
+      "key": "_id",
+      "value": "_id"
+    },
+    {
+      "key": "created_by",
+      "value": "created_by"
+    },
+    {
+      "key": "updated_by",
+      "value": "updated_by"
+    },
+    {
+      "key": "created_at",
+      "value": "created_at"
+    },
+    {
+      "key": "updated_at",
+      "value": "updated_at"
+    }
+  ],
+  "tenant_id": "677f6b3da3131eb0d3f9906d",
+  "id": "685e0261b706fe522979fbcf"
+}
