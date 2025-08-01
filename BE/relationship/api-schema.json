@@ -1,9 +1,0 @@
-[
-  {
-    "name": "api",
-    "targetTable": "role-settings",
-    "localField": "api",
-    "foreignField": "_id",
-    "type": "many-to-one"
-  }
-]

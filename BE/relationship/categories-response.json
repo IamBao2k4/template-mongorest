@@ -1,9 +1,0 @@
-[
-  {
-    "name": "parent_id",
-    "targetTable": "categories-response",
-    "localField": "parent_id",
-    "foreignField": "_id",
-    "type": "many-to-one"
-  }
-]

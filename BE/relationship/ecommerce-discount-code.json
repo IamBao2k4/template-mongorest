@@ -1,9 +1,0 @@
-[
-  {
-    "name": "price_rule",
-    "targetTable": "ecommerce-price-rule",
-    "localField": "price_rule",
-    "foreignField": "_id",
-    "type": "one-to-many"
-  }
-]

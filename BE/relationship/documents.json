@@ -1,9 +1,0 @@
-[
-  {
-    "name": "categories",
-    "targetTable": "categories-api",
-    "localField": "categories",
-    "foreignField": "_id",
-    "type": "many-to-one"
-  }
-]

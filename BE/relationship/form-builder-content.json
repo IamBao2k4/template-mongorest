@@ -1,9 +1,0 @@
-[
-  {
-    "name": "form_builder",
-    "targetTable": "form-builder",
-    "localField": "form_builder",
-    "foreignField": "_id",
-    "type": "one-to-many"
-  }
-]
