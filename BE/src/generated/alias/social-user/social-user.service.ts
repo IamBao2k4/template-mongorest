@@ -1,0 +1,264 @@
+import { FastifyRequest } from 'fastify';
+import { QueryProcessor, createQueryProcessor } from '../utils/queryProcessor';
+import { executeQueryInstance } from '../utils/executeQuery';
+
+export class SocialUserService {
+  protected config: any;
+  protected queryProcessor: QueryProcessor;
+  protected InstanceQuery = executeQueryInstance;
+
+  constructor() {
+    this.config = {
+  "social-user": {},
+  "get-list": {
+    "headers": [],
+    "params": [
+      {
+        "value": "group_id",
+        "key": "group_id"
+      }
+    ],
+    "body": [],
+    "validate": [
+      {
+        "notification": {},
+        "response": {
+          "_id": "67c0153b0bb62abd56e81538",
+          "title": "get list tenant's user except user from jwt",
+          "entity": "user-tenant-level-mapping",
+          "path_file": "json/response/67c0153b0bb62abd56e81538.json"
+        },
+        "query_validate": {
+          "combinator": "and",
+          "rules": [],
+          "id": "8471147f-a231-472f-b620-f84c126da95f"
+        },
+        "list_validate": [],
+        "custom_filter": {
+          "id": "caa68144-5b85-4bff-8c7b-0e0f76be16fc",
+          "rules": [
+            {
+              "id": "6ff6cdfb-9564-403b-abbf-605e5a22d68e",
+              "field": "@param:type",
+              "operator": "=",
+              "valueSource": "value",
+              "value": "global"
+            }
+          ],
+          "combinator": "and",
+          "not": false
+        }
+      },
+      {
+        "notification": {},
+        "response": {
+          "_id": "676cdda94ec833ce93a07fa7",
+          "title": "Get list user except group's members",
+          "path_file": "json/response/676cdda94ec833ce93a07fa7.json"
+        },
+        "query_validate": {
+          "combinator": "and",
+          "rules": [
+            {
+              "id": "f419c6e3-a347-4abf-8c03-a82f831ffa89",
+              "field": "data",
+              "operator": "=",
+              "valueSource": "value",
+              "value": "675a8e9b0f44fc1769fdea90"
+            },
+            {
+              "id": "2d263420-2888-440a-89aa-40c39e2de8b3",
+              "field": "data",
+              "operator": "=",
+              "valueSource": "value",
+              "value": "67a588e7b45a45be2aa96776"
+            },
+            {
+              "id": "a94f05c5-90e2-48b5-b10a-84368fa08521",
+              "field": "data",
+              "operator": "=",
+              "valueSource": "value",
+              "value": "6759411a2fbf378066198410"
+            },
+            {
+              "id": "3f6d0894-d526-438a-bc24-674f3a115508",
+              "field": "data",
+              "operator": "=",
+              "valueSource": "value",
+              "value": "675aa172049b30e1807cee21"
+            }
+          ],
+          "id": "9e9a4c9e-b158-493c-986e-dd61bd95a51f"
+        },
+        "list_validate": [
+          {
+            "_id": "675a8e9b0f44fc1769fdea90",
+            "title": "is-user-active",
+            "entity": {
+              "_id": "6749933810905d9ddbd0104b",
+              "mongodb_collection_name": "user"
+            },
+            "path_file": "json/validate/675a8e9b0f44fc1769fdea90.json"
+          },
+          {
+            "_id": "6759411a2fbf378066198410",
+            "title": "is-group-manager or group-owner",
+            "entity": {
+              "_id": "674810a776462b61b5df8ece",
+              "mongodb_collection_name": "mge-group-member"
+            },
+            "path_file": "json/validate/6759411a2fbf378066198410.json"
+          },
+          {
+            "_id": "674d2f9f4b5b2e5f92441d16",
+            "title": "user-joined-group",
+            "entity": {
+              "_id": "674810a776462b61b5df8ece",
+              "mongodb_collection_name": "mge-group-member"
+            },
+            "path_file": "json/validate/674d2f9f4b5b2e5f92441d16.json"
+          },
+          {
+            "_id": "675aa172049b30e1807cee21",
+            "title": "is-user-has-permission-add-member-to-group",
+            "entity": {
+              "_id": "674810a776462b61b5df8ece",
+              "mongodb_collection_name": "mge-group-member"
+            },
+            "path_file": "json/validate/675aa172049b30e1807cee21.json"
+          },
+          {
+            "_id": "67a588e7b45a45be2aa96776",
+            "title": "user-joined-group (no status)",
+            "entity": {
+              "_id": "674810a776462b61b5df8ece",
+              "mongodb_collection_name": "mge-group-member"
+            },
+            "path_file": "json/validate/67a588e7b45a45be2aa96776.json"
+          }
+        ],
+        "custom_filter": {
+          "id": "9025b517-2919-4bf0-9544-b7ed9df264f7",
+          "rules": [
+            {
+              "id": "40ebe8f2-de4a-47d1-bf7e-f4085968b217",
+              "field": "@param:type",
+              "operator": "=",
+              "valueSource": "value",
+              "value": "group"
+            }
+          ],
+          "combinator": "and",
+          "not": false
+        }
+      }
+    ]
+  },
+  "put": {
+    "headers": [],
+    "params": [],
+    "body": [],
+    "validate": [
+      {
+        "notification": {},
+        "response": {
+          "_id": "677603603c56caf3d6e3502e",
+          "title": "update me",
+          "entity": "user",
+          "path_file": "json/response/677603603c56caf3d6e3502e.json"
+        },
+        "query_validate": {
+          "combinator": "and",
+          "rules": [
+            {
+              "id": "a8bc9a06-eaf8-4fe9-bb80-38c7d20722bb",
+              "field": "data",
+              "operator": "=",
+              "valueSource": "value",
+              "value": "675a8e9b0f44fc1769fdea90"
+            }
+          ],
+          "id": "0b6ca403-7276-4c67-84f8-5da8432fc7f0"
+        },
+        "list_validate": [
+          {
+            "_id": "675a8e9b0f44fc1769fdea90",
+            "title": "is-user-active 1",
+            "entity": {
+              "_id": "6749933810905d9ddbd0104b",
+              "mongodb_collection_name": "user"
+            },
+            "path_file": "json/validate/675a8e9b0f44fc1769fdea90.json"
+          }
+        ],
+        "custom_filter": {
+          "rules": []
+        }
+      }
+    ]
+  }
+};
+    this.queryProcessor = createQueryProcessor();
+  }
+
+  async getList(request: FastifyRequest): Promise<any> {
+    const methodConfig = this.config['get-list'];
+    
+    // Build query from request parameters
+    const query = {
+      method: 'get-list',
+      params: { ...(request.params as object), ...(request.query as object) },
+      query: request.query,
+      body: request.body,
+      headers: request.headers
+    };
+    
+    // Process query with validation
+    const processedQuery = await this.queryProcessor.processQuery(
+      query,
+      methodConfig.validate
+    );
+    
+    // Execute MongoDB aggregation
+    const result = await this.InstanceQuery.executeMongoAggregation(processedQuery);
+
+    return {
+      result: result,
+      input: query
+    };
+  }
+
+
+
+
+
+
+
+  async update(request: FastifyRequest): Promise<any> {
+    const methodConfig = this.config['put'];
+    
+    // Build query from request parameters
+    const query = {
+      method: 'update',
+      params: { ...(request.params as object), ...(request.query as object) },
+      query: request.query,
+      body: request.body,
+      headers: request.headers
+    };
+    
+    // Process query with validation
+    const processedQuery = await this.queryProcessor.processQuery(
+      query,
+      methodConfig.validate
+    );
+    
+    // Execute MongoDB aggregation
+    const result = await this.InstanceQuery.executeMongoAggregation(processedQuery);
+
+    return {
+      result: result,
+      input: query
+    };
+  }
+
+}

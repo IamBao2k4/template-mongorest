@@ -1,0 +1,40 @@
+export const ISTENANTPRIVATE = {
+  _id: "67cdc90fc4550fe33c2a6c43",
+  title: "is-tenant-private",
+  entity: [
+  "6740251baefaffc3e4662e6b"
+],
+  data: {
+  "id": "db57ca9d-a905-463e-a003-8389212ecad0",
+  "rules": [
+    {
+      "id": "1f201504-630c-4f94-983d-23b0910c9618",
+      "field": "tenant.type",
+      "operator": "=",
+      "valueSource": "value",
+      "value": "private"
+    },
+    {
+      "id": "57820aea-6f9e-4762-a754-2fe5011028a0",
+      "field": "tenant._id",
+      "operator": "=",
+      "valueSource": "value",
+      "value": "x-tenant-id"
+    }
+  ],
+  "combinator": "and",
+  "not": false
+},
+  required: [],
+  queryMongodb: `{"$and":[{"tenant.type":"private"},{"tenant._id":"x-tenant-id"}]}`,
+  locale: null,
+  locale_id: null,
+  tenant_id: "67c6ad0ccb2d3f0de04c67eb",
+  documents: [],
+  body: null,
+  categories: [],
+  headers: null,
+  params: null,
+} as const;
+
+export type IstenantprivateConfig = typeof ISTENANTPRIVATE;

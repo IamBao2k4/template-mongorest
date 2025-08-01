@@ -1,0 +1,40 @@
+export const DIDGROUPPAUSE = {
+  _id: "67a5881db45a45be2aa9671e",
+  title: "did-group-pause",
+  entity: [
+  "6747ef07c47463d88f8c5ab1"
+],
+  data: {
+  "id": "ec09fa27-43c0-4895-9663-767c5aa5de18",
+  "rules": [
+    {
+      "id": "864e2d28-c468-4942-b08b-22f77149b268",
+      "field": "mge-group._id",
+      "operator": "=",
+      "valueSource": "value",
+      "value": "$mge-group._id:param.group_id"
+    },
+    {
+      "id": "e7576fce-a67e-4abe-a1dc-97332e40f70d",
+      "field": "mge-group.status",
+      "operator": "=",
+      "valueSource": "value",
+      "value": "pause"
+    }
+  ],
+  "combinator": "and",
+  "not": false
+},
+  required: [],
+  queryMongodb: `{"$and":[{"mge-group._id":"$mge-group._id:param.group_id"},{"mge-group.status":"pause"}]}`,
+  locale: null,
+  locale_id: null,
+  tenant_id: "674028d2611a654e763a73e8",
+  documents: [],
+  body: null,
+  categories: [],
+  headers: null,
+  params: null,
+} as const;
+
+export type DidgrouppauseConfig = typeof DIDGROUPPAUSE;

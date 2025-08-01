@@ -1,0 +1,40 @@
+export const ISTWEETSTATUSWAITING = {
+  _id: "67da3b1dbab79a925cd2f54a",
+  title: "is-tweet-status-waiting",
+  entity: [
+  "67b6a286606da18e6c1976f1"
+],
+  data: {
+  "id": "52e9f90e-8c68-458b-9f1c-00f68f3667d9",
+  "rules": [
+    {
+      "id": "54652126-8203-428a-a5fb-c6ae883fd65e",
+      "field": "mge-tweet._id",
+      "operator": "=",
+      "valueSource": "value",
+      "value": "$mge-tweet._id:param._id"
+    },
+    {
+      "id": "ee0fb81b-5e0b-4fde-82c6-7d3417ea8339",
+      "field": "mge-tweet.status",
+      "operator": "=",
+      "valueSource": "value",
+      "value": "waiting"
+    }
+  ],
+  "combinator": "and",
+  "not": false
+},
+  required: [],
+  queryMongodb: `{"$and":[{"mge-tweet._id":"$mge-tweet._id:param._id"},{"mge-tweet.status":"waiting"}]}`,
+  locale: null,
+  locale_id: null,
+  tenant_id: "674028d2611a654e763a73e8",
+  documents: [],
+  body: null,
+  categories: [],
+  headers: null,
+  params: null,
+} as const;
+
+export type IstweetstatuswaitingConfig = typeof ISTWEETSTATUSWAITING;

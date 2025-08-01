@@ -1,0 +1,122 @@
+import { FastifyRequest } from 'fastify';
+import { QueryProcessor, createQueryProcessor } from '../utils/queryProcessor';
+import { executeQueryInstance } from '../utils/executeQuery';
+
+export class GroupSettingService {
+  protected config: any;
+  protected queryProcessor: QueryProcessor;
+  protected InstanceQuery = executeQueryInstance;
+
+  constructor() {
+    this.config = {
+  "group-setting": {},
+  "put": {
+    "headers": [],
+    "params": [],
+    "body": [],
+    "validate": [
+      {
+        "notification": {},
+        "response": {
+          "_id": "6773aeb8ab2649a80d75bac1",
+          "title": "update group's setting",
+          "entity": "mge-group",
+          "path_file": "json/response/6773aeb8ab2649a80d75bac1.json"
+        },
+        "query_validate": {
+          "combinator": "and",
+          "rules": [
+            {
+              "id": "0918eee4-67a4-4d14-a169-ea97177eeb3a",
+              "field": "data",
+              "operator": "=",
+              "valueSource": "value",
+              "value": "675a8e9b0f44fc1769fdea90"
+            },
+            {
+              "id": "8700122a-b272-4404-b843-638f5928b888",
+              "field": "data",
+              "operator": "=",
+              "valueSource": "value",
+              "value": "674d2f9f4b5b2e5f92441d16"
+            },
+            {
+              "id": "7703fa7f-3be4-41d4-aeeb-c407b93b8ffc",
+              "field": "data",
+              "operator": "=",
+              "valueSource": "value",
+              "value": "675aad79049b30e1807cf6ea"
+            }
+          ],
+          "id": "aff4b089-2556-4f7c-8687-ad0ac87d4e8a"
+        },
+        "list_validate": [
+          {
+            "_id": "675a8e9b0f44fc1769fdea90",
+            "title": "is-user-active 1",
+            "entity": {
+              "_id": "6749933810905d9ddbd0104b",
+              "mongodb_collection_name": "user"
+            },
+            "path_file": "json/validate/675a8e9b0f44fc1769fdea90.json"
+          },
+          {
+            "_id": "675aad79049b30e1807cf6ea",
+            "title": "is-user-be-group-owner",
+            "entity": {
+              "_id": "674810a776462b61b5df8ece",
+              "mongodb_collection_name": "mge-group-member"
+            },
+            "path_file": "json/validate/675aad79049b30e1807cf6ea.json"
+          },
+          {
+            "_id": "674d2f9f4b5b2e5f92441d16",
+            "title": "user-joined-group",
+            "entity": {
+              "_id": "674810a776462b61b5df8ece",
+              "mongodb_collection_name": "mge-group-member"
+            },
+            "path_file": "json/validate/674d2f9f4b5b2e5f92441d16.json"
+          }
+        ],
+        "custom_filter": {
+          "rules": []
+        }
+      }
+    ]
+  }
+};
+    this.queryProcessor = createQueryProcessor();
+  }
+
+
+
+
+  async update(request: FastifyRequest): Promise<any> {
+    const methodConfig = this.config['put'];
+    
+    // Build query from request parameters
+    const query = {
+      method: 'update',
+      params: { ...(request.params as object), ...(request.query as object) },
+      query: request.query,
+      body: request.body,
+      headers: request.headers
+    };
+    
+    // Process query with validation
+    const processedQuery = await this.queryProcessor.processQuery(
+      query,
+      methodConfig.validate
+    );
+    
+    // Execute MongoDB aggregation
+    const result = await this.InstanceQuery.executeMongoAggregation(processedQuery);
+
+    return {
+      result: result,
+      input: query
+    };
+  }
+
+}

@@ -1,0 +1,40 @@
+export const ISLIKECREATOR = {
+  _id: "67e5193fe7deb4b67718d5af",
+  title: "is-like-creator",
+  entity: [
+  "676a2762dedfcf1bf1c55abf"
+],
+  data: {
+  "id": "c23f8bdd-7c33-4a46-a448-2d367d8dc526",
+  "rules": [
+    {
+      "id": "374eee14-c2d9-456b-b938-6ddc13baae10",
+      "field": "mge-entity-like._id",
+      "operator": "=",
+      "valueSource": "value",
+      "value": "$mge-entity-like._id:param._id"
+    },
+    {
+      "id": "0143ee18-b28f-424f-a744-b5c9968db2bb",
+      "field": "mge-entity-like.created_by",
+      "operator": "=",
+      "valueSource": "value",
+      "value": "$mge-entity-like.created_by:jwt.user@id"
+    }
+  ],
+  "combinator": "and",
+  "not": false
+},
+  required: [],
+  queryMongodb: `{"$and":[{"mge-entity-like._id":"$mge-entity-like._id:param._id"},{"mge-entity-like.created_by":"$mge-entity-like.created_by:jwt.user@id"}]}`,
+  locale: null,
+  locale_id: null,
+  tenant_id: "674028d2611a654e763a73e8",
+  documents: [],
+  body: null,
+  categories: [],
+  headers: null,
+  params: null,
+} as const;
+
+export type IslikecreatorConfig = typeof ISLIKECREATOR;

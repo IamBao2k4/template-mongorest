@@ -1,0 +1,87 @@
+export const ISUSERHASPERMISSIONTOMANAGELESSON = {
+  _id: "678681b36d9b09071159c4e9",
+  title: "is-user-has-permission-to-manage-lesson",
+  entity: [
+  "67853fcd4c9747dfaeed5f84"
+],
+  data: {},
+  required: [],
+  queryMongodb: `{}`,
+  locale: null,
+  locale_id: null,
+  tenant_id: "677f6b3da3131eb0d3f9906d",
+  advance: `[
+  {
+    "$match": {
+      "user": "@jwt:user.id",
+      "course": "@params:course_id"
+    }
+  },
+  {
+    "$addFields": {
+      "course": {
+        "$map": {
+          "input": "$course",
+          "as": "sg",
+          "in": {
+            "$toObjectId": "$$sg"
+          }
+        }
+      }
+    }
+  },
+  {
+    "$lookup": {
+      "from": "mge-courses",
+      "localField": "course",
+      "foreignField": "_id",
+      "as": "course_info"
+    }
+  },
+  {
+    "$addFields": {
+      "course_info": {
+        "$arrayElemAt": [
+          "$course_info",
+          0
+        ]
+      }
+    }
+  },
+  {
+    "$addFields": {
+      "can_manage_lesson_in_course": {
+        "$cond": {
+          "if": {
+            "$gt": [
+              {
+                "$size": {
+                  "$setIntersection": [
+                    "$role",
+                    "$course_info.permissions.course_lesson_manage"
+                  ]
+                }
+              },
+              0
+            ]
+          },
+          "then": true,
+          "else": false
+        }
+      }
+    }
+  },
+  {
+    "$match": {
+      "can_manage_lesson_in_course": true
+    }
+  }
+]`,
+  documents: [],
+  body: null,
+  categories: [],
+  headers: null,
+  params: null,
+} as const;
+
+export type IsuserhaspermissiontomanagelessonConfig = typeof ISUSERHASPERMISSIONTOMANAGELESSON;

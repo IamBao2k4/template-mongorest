@@ -1,0 +1,397 @@
+import { FastifyRequest } from 'fastify';
+import { QueryProcessor, createQueryProcessor } from '../utils/queryProcessor';
+import { executeQueryInstance } from '../utils/executeQuery';
+
+export class OrderService {
+  protected config: any;
+  protected queryProcessor: QueryProcessor;
+  protected InstanceQuery = executeQueryInstance;
+
+  constructor() {
+    this.config = {
+  "order": {},
+  "get-list": {
+    "headers": [],
+    "params": [],
+    "body": [],
+    "validate": [
+      {
+        "notification": {},
+        "response": {
+          "_id": "68062751beb73c2d42c97c1f",
+          "title": "GET danh sách order",
+          "entity": "ecommerce-order",
+          "path_file": "json/response/68062751beb73c2d42c97c1f.json"
+        },
+        "query_validate": {
+          "combinator": "and",
+          "rules": [
+            {
+              "id": "cfa054c1-3cea-4118-a396-69c9ac09574e",
+              "field": "data",
+              "operator": "=",
+              "valueSource": "value",
+              "value": "6805c41e484b959b5ecda5fc"
+            }
+          ],
+          "id": "cb012567-7174-4bc5-9e33-7d8948eb6c43"
+        },
+        "list_validate": [
+          {
+            "_id": "6805c41e484b959b5ecda5fc",
+            "title": "Kiểm tra trạng thái active của người dùng",
+            "entity": {
+              "_id": "67aad740a67aaa1951ca64b0",
+              "mongodb_collection_name": "user-tenant-profile"
+            },
+            "path_file": "json/validate/6805c41e484b959b5ecda5fc.json"
+          }
+        ],
+        "custom_filter": {
+          "rules": []
+        }
+      }
+    ]
+  },
+  "get-detail": {
+    "headers": [],
+    "params": [],
+    "body": [],
+    "validate": [
+      {
+        "notification": {},
+        "response": {
+          "_id": "68062784beb73c2d42c97c28",
+          "title": "GET chi tiết order",
+          "entity": "ecommerce-order",
+          "path_file": "json/response/68062784beb73c2d42c97c28.json"
+        },
+        "query_validate": {
+          "combinator": "and",
+          "rules": [
+            {
+              "id": "d0eb370a-8001-45b2-aca0-4d1896790cf7",
+              "field": "data",
+              "operator": "=",
+              "valueSource": "value",
+              "value": "6805c41e484b959b5ecda5fc"
+            }
+          ],
+          "id": "0b2e7ea4-12fd-4fe9-af6a-6b0a9740be4d"
+        },
+        "list_validate": [
+          {
+            "_id": "6805c41e484b959b5ecda5fc",
+            "title": "Kiểm tra trạng thái active của người dùng",
+            "entity": {
+              "_id": "67aad740a67aaa1951ca64b0",
+              "mongodb_collection_name": "user-tenant-profile"
+            },
+            "path_file": "json/validate/6805c41e484b959b5ecda5fc.json"
+          }
+        ],
+        "custom_filter": {
+          "rules": []
+        }
+      },
+      {
+        "notification": {},
+        "response": {},
+        "query_validate": {},
+        "list_validate": [],
+        "custom_filter": {
+          "rules": []
+        }
+      },
+      {
+        "notification": {},
+        "response": {},
+        "query_validate": {},
+        "list_validate": [],
+        "custom_filter": {
+          "rules": []
+        }
+      }
+    ]
+  },
+  "post": {
+    "headers": [],
+    "params": [],
+    "body": [],
+    "validate": [
+      {
+        "notification": {},
+        "response": {
+          "_id": "680628ecbeb73c2d42c97c97",
+          "title": "CREATE order",
+          "entity": "ecommerce-order",
+          "path_file": "json/response/680628ecbeb73c2d42c97c97.json"
+        },
+        "query_validate": {
+          "combinator": "and",
+          "rules": [
+            {
+              "id": "202f9401-1d28-47db-8593-22ecfc868a02",
+              "field": "data",
+              "operator": "=",
+              "valueSource": "value",
+              "value": "6805c41e484b959b5ecda5fc"
+            }
+          ],
+          "id": "cd62d49c-c74f-40a7-ba65-0225c647618c"
+        },
+        "list_validate": [
+          {
+            "_id": "6805c41e484b959b5ecda5fc",
+            "title": "Kiểm tra trạng thái active của người dùng",
+            "entity": {
+              "_id": "67aad740a67aaa1951ca64b0",
+              "mongodb_collection_name": "user-tenant-profile"
+            },
+            "path_file": "json/validate/6805c41e484b959b5ecda5fc.json"
+          }
+        ],
+        "custom_filter": {
+          "rules": []
+        },
+        "trigger_pipeline": "[\n  {\n    \"collection_name\": \"ecommerce-discount-code\",\n    \"action\": \"update\",\n    \"query_advance\": [\n      {\n        \"$match\": {\n          \"$expr\": {\n            \"$in\": [\n              \"$code\",\n              {\n                \"$map\": {\n                  \"input\": \"@main_result:applied_discounts\",\n                  \"as\": \"item\",\n                  \"in\": \"$$item.code_value\"\n                }\n              }\n            ]\n          }\n        }\n      }\n    ],\n    \"advance\": {\n      \"usage_count\": \"$$inc\"\n    }\n  }\n]"
+      }
+    ]
+  },
+  "put": {
+    "headers": [],
+    "params": [],
+    "body": [],
+    "validate": [
+      {
+        "notification": {},
+        "response": {
+          "_id": "68062bb0beb73c2d42c97e38",
+          "title": "UPDATE order",
+          "entity": "ecommerce-order",
+          "path_file": "json/response/68062bb0beb73c2d42c97e38.json"
+        },
+        "query_validate": {
+          "combinator": "and",
+          "rules": [
+            {
+              "id": "f862538e-28e9-4402-a391-babd34f5d76c",
+              "field": "data",
+              "operator": "=",
+              "valueSource": "value",
+              "value": "6805c41e484b959b5ecda5fc"
+            }
+          ],
+          "id": "9261e174-e8bf-49e8-8859-58ea5d7a3f44"
+        },
+        "list_validate": [
+          {
+            "_id": "6805c41e484b959b5ecda5fc",
+            "title": "Kiểm tra trạng thái active của người dùng",
+            "entity": {
+              "_id": "67aad740a67aaa1951ca64b0",
+              "mongodb_collection_name": "user-tenant-profile"
+            },
+            "path_file": "json/validate/6805c41e484b959b5ecda5fc.json"
+          }
+        ],
+        "custom_filter": {
+          "rules": []
+        }
+      },
+      {
+        "notification": {},
+        "response": {},
+        "query_validate": {},
+        "list_validate": [],
+        "custom_filter": {
+          "rules": []
+        }
+      },
+      {
+        "notification": {},
+        "response": {},
+        "query_validate": {},
+        "list_validate": [],
+        "custom_filter": {
+          "rules": []
+        }
+      }
+    ]
+  },
+  "delete": {
+    "headers": [],
+    "params": [],
+    "body": [],
+    "validate": [
+      {
+        "notification": {},
+        "response": {
+          "_id": "68062bb0beb73c2d42c97e38",
+          "title": "UPDATE order",
+          "entity": "ecommerce-order",
+          "path_file": "json/response/68062bb0beb73c2d42c97e38.json"
+        },
+        "query_validate": {},
+        "list_validate": [],
+        "custom_filter": {
+          "rules": []
+        }
+      }
+    ]
+  }
+};
+    this.queryProcessor = createQueryProcessor();
+  }
+
+  async getList(request: FastifyRequest): Promise<any> {
+    const methodConfig = this.config['get-list'];
+    
+    // Build query from request parameters
+    const query = {
+      method: 'get-list',
+      params: { ...(request.params as object), ...(request.query as object) },
+      query: request.query,
+      body: request.body,
+      headers: request.headers
+    };
+    
+    // Process query with validation
+    const processedQuery = await this.queryProcessor.processQuery(
+      query,
+      methodConfig.validate
+    );
+    
+    // Execute MongoDB aggregation
+    const result = await this.InstanceQuery.executeMongoAggregation(processedQuery);
+
+    return {
+      result: result,
+      input: query
+    };
+  }
+
+
+
+
+
+  async getDetail(request: FastifyRequest): Promise<any> {
+    const methodConfig = this.config['get-detail'];
+    
+    // Build query from request parameters
+    const query = {
+      method: 'get-detail',
+      params: { ...(request.params as object), ...(request.query as object) },
+      query: request.query,
+      body: request.body,
+      headers: request.headers
+    };
+    
+    // Process query with validation
+    const processedQuery = await this.queryProcessor.processQuery(
+      query,
+      methodConfig.validate
+    );
+    
+    // Execute MongoDB aggregation
+    const result = await this.InstanceQuery.executeMongoAggregation(processedQuery);
+
+    return {
+      result: result,
+      input: query
+    };
+  }
+
+
+
+
+
+  async create(request: FastifyRequest): Promise<any> {
+    const methodConfig = this.config['post'];
+    
+    // Build query from request parameters
+    const query = {
+      method: 'create',
+      params: { ...(request.params as object), ...(request.query as object) },
+      query: request.query,
+      body: request.body,
+      headers: request.headers
+    };
+    
+    // Process query with validation
+    const processedQuery = await this.queryProcessor.processQuery(
+      query,
+      methodConfig.validate
+    );
+    
+    // Execute MongoDB aggregation
+    const result = await this.InstanceQuery.executeMongoAggregation(processedQuery);
+
+    return {
+      result: result,
+      input: query
+    };
+  }
+
+
+
+
+
+  async update(request: FastifyRequest): Promise<any> {
+    const methodConfig = this.config['put'];
+    
+    // Build query from request parameters
+    const query = {
+      method: 'update',
+      params: { ...(request.params as object), ...(request.query as object) },
+      query: request.query,
+      body: request.body,
+      headers: request.headers
+    };
+    
+    // Process query with validation
+    const processedQuery = await this.queryProcessor.processQuery(
+      query,
+      methodConfig.validate
+    );
+    
+    // Execute MongoDB aggregation
+    const result = await this.InstanceQuery.executeMongoAggregation(processedQuery);
+
+    return {
+      result: result,
+      input: query
+    };
+  }
+
+
+
+
+
+  async delete(request: FastifyRequest): Promise<any> {
+    const methodConfig = this.config['delete'];
+    
+    // Build query from request parameters
+    const query = {
+      method: 'delete',
+      params: { ...(request.params as object), ...(request.query as object) },
+      query: request.query,
+      body: request.body,
+      headers: request.headers
+    };
+    
+    // Process query with validation
+    const processedQuery = await this.queryProcessor.processQuery(
+      query,
+      methodConfig.validate
+    );
+    
+    // Execute MongoDB aggregation
+    const result = await this.InstanceQuery.executeMongoAggregation(processedQuery);
+
+    return {
+      result: result,
+      input: query
+    };
+  }
+}

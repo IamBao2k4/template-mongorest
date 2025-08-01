@@ -1,0 +1,90 @@
+import { FastifyRequest } from 'fastify';
+import { QueryProcessor, createQueryProcessor } from '../utils/queryProcessor';
+import { executeQueryInstance } from '../utils/executeQuery';
+
+export class UserLearningPathService {
+  protected config: any;
+  protected queryProcessor: QueryProcessor;
+  protected InstanceQuery = executeQueryInstance;
+
+  constructor() {
+    this.config = {
+  "user-learning-path": {},
+  "get-list": {
+    "headers": [],
+    "params": [],
+    "body": [],
+    "validate": [
+      {
+        "notification": {},
+        "response": {
+          "_id": "68077851fa0fd1ce859894b9",
+          "title": "get list user's learning  path",
+          "entity": "mge-learning-path",
+          "path_file": "json/response/68077851fa0fd1ce859894b9.json"
+        },
+        "query_validate": {
+          "combinator": "and",
+          "rules": [
+            {
+              "id": "373c296e-0d38-4942-a218-f822383475e6",
+              "field": "data",
+              "operator": "=",
+              "valueSource": "value",
+              "value": "678539794c9747dfaeed5f39"
+            }
+          ],
+          "id": "c33c450d-1f47-4510-9173-81c44a66b37f"
+        },
+        "list_validate": [
+          {
+            "_id": "678539794c9747dfaeed5f39",
+            "title": "is-user-active-in-tenant",
+            "entity": {
+              "_id": "67aad740a67aaa1951ca64b0",
+              "mongodb_collection_name": "user-tenant-profile"
+            },
+            "path_file": "json/validate/678539794c9747dfaeed5f39.json"
+          }
+        ],
+        "custom_filter": {
+          "rules": []
+        }
+      }
+    ]
+  }
+};
+    this.queryProcessor = createQueryProcessor();
+  }
+
+  async getList(request: FastifyRequest): Promise<any> {
+    const methodConfig = this.config['get-list'];
+    
+    // Build query from request parameters
+    const query = {
+      method: 'get-list',
+      params: { ...(request.params as object), ...(request.query as object) },
+      query: request.query,
+      body: request.body,
+      headers: request.headers
+    };
+    
+    // Process query with validation
+    const processedQuery = await this.queryProcessor.processQuery(
+      query,
+      methodConfig.validate
+    );
+    
+    // Execute MongoDB aggregation
+    const result = await this.InstanceQuery.executeMongoAggregation(processedQuery);
+
+    return {
+      result: result,
+      input: query
+    };
+  }
+
+
+
+
+}

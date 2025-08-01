@@ -1,0 +1,622 @@
+export const GET_LIST_TWEET = {
+  _id: "67ce855b0e05c9a6ba6e8fa0",
+  title: "get list tweet",
+  method: "get-list",
+  locale: null,
+  locale_id: null,
+  outputEntity: [
+  "67c66d92cb2d3f0de04bccc1"
+],
+  queryAdvance: `[
+  {
+    "$addFields": {
+      "id": {
+        "$toString": "$_id"
+      }
+    }
+  },
+  {
+    "$match": {
+      "tenant_id": "@header:x-tenant-id"
+    }
+  },
+  {
+    "$addFields": {
+      "featured_image": {
+        "$map": {
+          "input": "$featured_image",
+          "as": "u",
+          "in": {
+            "$toObjectId": "$$u"
+          }
+        }
+      }
+    }
+  },
+  {
+    "$lookup": {
+      "from": "media",
+      "localField": "featured_image",
+      "foreignField": "_id",
+      "pipeline": [
+        {
+          "$addFields": {
+            "path": {
+              "$concat": [
+                {
+                  "$cond": [
+                    {
+                      "$eq": [
+                        "minio",
+                        "@app_settings:storage_type"
+                      ]
+                    },
+                    "@app_settings:minio.public",
+                    "@app_settings:doSpace.public"
+                  ]
+                },
+                "/",
+                "$disk",
+                "/",
+                "$filename"
+              ]
+            }
+          }
+        }
+      ],
+      "as": "featured_image"
+    }
+  },
+  {
+    "$lookup": {
+      "from": "mge-listing-tweet-saved",
+      "localField": "id",
+      "foreignField": "tweet_id",
+      "pipeline": [
+        {
+          "$match": {
+            "tenant_id": "@header:x-tenant-id",
+            "created_by": "@jwt:user.id"
+          }
+        }
+      ],
+      "as": "saved_info"
+    }
+  },
+  {
+    "$addFields": {
+      "saved": {
+        "$cond": {
+          "if": {
+            "$gt": [
+              {
+                "$size": "$saved_info"
+              },
+              0
+            ]
+          },
+          "then": true,
+          "else": false
+        }
+      }
+    }
+  },
+  {
+    "$match": {
+      "$expr": {
+        "$and": [
+          {
+            "$cond": {
+              "if": {
+                "$ne": [
+                  "@param:status[]",
+                  null
+                ]
+              },
+              "then": {
+                "$or": [
+                  {
+                    "$in": [
+                      "$status",
+                      [
+                        "@param:status[]"
+                      ]
+                    ]
+                  },
+                  {
+                    "$in": [
+                      "$status",
+                      [
+                        [
+                          "@param:status[]"
+                        ]
+                      ]
+                    ]
+                  }
+                ]
+              },
+              "else": true
+            }
+          },
+          {
+            "$cond": {
+              "if": {
+                "$ne": [
+                  "@param:type[]",
+                  null
+                ]
+              },
+              "then": {
+                "$or": [
+                  {
+                    "$in": [
+                      "$type",
+                      [
+                        "@param:type[]"
+                      ]
+                    ]
+                  },
+                  {
+                    "$in": [
+                      "$type",
+                      [
+                        [
+                          "@param:type[]"
+                        ]
+                      ]
+                    ]
+                  }
+                ]
+              },
+              "else": true
+            }
+          },
+          {
+            "$cond": {
+              "if": {
+                "$ne": [
+                  "@param:city",
+                  null
+                ]
+              },
+              "then": {
+                "$and": [
+                  {
+                    "$eq": [
+                      "$address.city",
+                      "@param:city"
+                    ]
+                  },
+                  {
+                    "$cond": {
+                      "if": {
+                        "$ne": [
+                          "@param:district",
+                          null
+                        ]
+                      },
+                      "then": {
+                        "$and": [
+                          {
+                            "$eq": [
+                              "$address.district",
+                              "@param:district"
+                            ]
+                          },
+                          {
+                            "$cond": {
+                              "if": {
+                                "$ne": [
+                                  "@param:ward",
+                                  null
+                                ]
+                              },
+                              "then": {
+                                "$eq": [
+                                  "$address.ward",
+                                  "@param:ward"
+                                ]
+                              },
+                              "else": true
+                            }
+                          }
+                        ]
+                      },
+                      "else": true
+                    }
+                  }
+                ]
+              },
+              "else": true
+            }
+          },
+          {
+            "$cond": {
+              "if": {
+                "$ne": [
+                  "@param:category[]",
+                  null
+                ]
+              },
+              "then": {
+                "$gt": [
+                  {
+                    "$size": {
+                      "$filter": {
+                        "input": "@param:category[]",
+                        "as": "categoryItem",
+                        "cond": {
+                          "$in": [
+                            "$$categoryItem",
+                            "$category"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  0
+                ]
+              },
+              "else": true
+            }
+          },
+          //--- BỘ LỌC GIÁ ---
+          {
+            "$cond": {
+              "if": {
+                "$and": [
+                  {
+                    "$ne": [
+                      {
+                        "$toDouble": "@param:minPrice"
+                      },
+                      null
+                    ]
+                  },
+                  {
+                    "$ne": [
+                      {
+                        "$toDouble": "@param:maxPrice"
+                      },
+                      null
+                    ]
+                  }
+                ]
+              },
+              "then": {
+                "$and": [
+                  {
+                    "$gte": [
+                      "$real_estate_features.price",
+                      {
+                        "$toDouble": "@param:minPrice"
+                      }
+                    ]
+                  },
+                  {
+                    "$lte": [
+                      "$real_estate_features.price",
+                      {
+                        "$toDouble": "@param:maxPrice"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "else": {
+                "$cond": {
+                  "if": {
+                    "$ne": [
+                      {
+                        "$toDouble": "@param:minPrice"
+                      },
+                      null
+                    ]
+                  },
+                  "then": {
+                    "$gte": [
+                      "$real_estate_features.price",
+                      {
+                        "$toDouble": "@param:minPrice"
+                      }
+                    ]
+                  },
+                  "else": {
+                    "$cond": {
+                      "if": {
+                        "$ne": [
+                          {
+                            "$toDouble": "@param:maxPrice"
+                          },
+                          null
+                        ]
+                      },
+                      "then": {
+                        "$lte": [
+                          "$real_estate_features.price",
+                          {
+                            "$toDouble": "@param:maxPrice"
+                          }
+                        ]
+                      },
+                      "else": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          //--- BỘ LỌC DIỆN TÍCH ---
+          {
+            "$cond": {
+              "if": {
+                "$and": [
+                  {
+                    "$ne": [
+                      {
+                        "$toDouble": "@param:minArea"
+                      },
+                      null
+                    ]
+                  },
+                  {
+                    "$ne": [
+                      {
+                        "$toDouble": "@param:maxArea"
+                      },
+                      null
+                    ]
+                  }
+                ]
+              },
+              "then": {
+                "$and": [
+                  {
+                    "$gte": [
+                      "$real_estate_features.acreage",
+                      {
+                        "$toDouble": "@param:minArea"
+                      }
+                    ]
+                  },
+                  {
+                    "$lte": [
+                      "$real_estate_features.acreage",
+                      {
+                        "$toDouble": "@param:maxArea"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "else": {
+                "$cond": {
+                  "if": {
+                    "$ne": [
+                      {
+                        "$toDouble": "@param:minArea"
+                      },
+                      null
+                    ]
+                  },
+                  "then": {
+                    "$gte": [
+                      "$real_estate_features.acreage",
+                      {
+                        "$toDouble": "@param:minArea"
+                      }
+                    ]
+                  },
+                  "else": {
+                    "$cond": {
+                      "if": {
+                        "$ne": [
+                          {
+                            "$toDouble": "@param:maxArea"
+                          },
+                          null
+                        ]
+                      },
+                      "then": {
+                        "$lte": [
+                          "$real_estate_features.acreage",
+                          {
+                            "$toDouble": "@param:maxArea"
+                          }
+                        ]
+                      },
+                      "else": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "$addFields": {
+      "category": {
+        "$map": {
+          "input": "$category",
+          "as": "u",
+          "in": {
+            "$toObjectId": "$$u"
+          }
+        }
+      }
+    }
+  },
+  {
+    "$lookup": {
+      "from": "mge-listing-category",
+      "localField": "category",
+      "foreignField": "_id",
+      "as": "category"
+    }
+  },
+  {
+    "$addFields": {
+      "created_by": {
+        "$toObjectId": "$created_by"
+      }
+    }
+  },
+  {
+    "$lookup": {
+      "from": "user",
+      "localField": "created_by",
+      "foreignField": "_id",
+      "pipeline": [
+        {
+          "$addFields": {
+            "featured_image": {
+              "$map": {
+                "input": "$featured_image",
+                "as": "u",
+                "in": {
+                  "$toObjectId": "$$u"
+                }
+              }
+            }
+          }
+        },
+        {
+          "$lookup": {
+            "from": "media",
+            "localField": "featured_image",
+            "foreignField": "_id",
+            "pipeline": [
+              {
+                "$addFields": {
+                  "path": {
+                    "$concat": [
+                      {
+                        "$cond": [
+                          {
+                            "$eq": [
+                              "minio",
+                              "@app_settings:storage_type"
+                            ]
+                          },
+                          "@app_settings:minio.public",
+                          "@app_settings:doSpace.public"
+                        ]
+                      },
+                      "/",
+                      "$disk",
+                      "/",
+                      "$filename"
+                    ]
+                  }
+                }
+              }
+            ],
+            "as": "featured_image"
+          }
+        },
+        {
+          "$project": {
+            "password": 0,
+            "role_system": 0
+          }
+        }
+      ],
+      "as": "created_by"
+    }
+  },
+  {
+    "$facet": {
+      "meta_data": [
+        {
+          "$count": "count"
+        },
+        {
+          "$addFields": {
+            "skip": "@param:skip",
+            "limit": "@param:limit"
+          }
+        }
+      ],
+      "data": [
+        {
+          "$skip": "@param:skip"
+        },
+        {
+          "$limit": "@param:limit"
+        }
+      ]
+    }
+  }
+]`,
+  categories: [],
+  tenant_id: "67c6ad0ccb2d3f0de04c67eb",
+  documents: [],
+  body: null,
+  params: [
+  {
+    "value": "skip",
+    "key": "skip"
+  },
+  {
+    "value": "limit",
+    "key": "limit"
+  },
+  {
+    "value": "status[]",
+    "key": "status[]"
+  },
+  {
+    "value": "type[]",
+    "key": "type[]"
+  },
+  {
+    "value": "city",
+    "key": "city"
+  },
+  {
+    "value": "district",
+    "key": "district"
+  },
+  {
+    "value": "ward",
+    "key": "ward"
+  },
+  {
+    "value": "category",
+    "key": "category"
+  },
+  {
+    "value": "minPrice",
+    "key": "minPrice"
+  },
+  {
+    "value": "maxPrice",
+    "key": "maxPrice"
+  },
+  {
+    "value": "minArea",
+    "key": "minArea"
+  },
+  {
+    "value": "maxArea",
+    "key": "maxArea"
+  },
+  {
+    "value": "category[]",
+    "key": "category[]"
+  }
+],
+  headers: [
+  {
+    "value": "x-tenant-id",
+    "key": "x-tenant-id"
+  }
+],
+  restricted: [],
+  id: "",
+} as const;
+
+export type GetListTweetConfig = typeof GET_LIST_TWEET;

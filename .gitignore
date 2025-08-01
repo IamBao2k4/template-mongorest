@@ -1,5 +1,5 @@
 **/.env**
-**/generated/**
+**/generators/**
 **/dist/**
 **/node_modules/**
 **/coverage/**

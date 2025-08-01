@@ -1,0 +1,34 @@
+export const ISUSERACTIVEINTENANT = {
+  _id: "675a8e9b0f44fc1769fdea90",
+  title: "is-user-active-in-tenant",
+  entity: [
+  "67aad740a67aaa1951ca64b0"
+],
+  data: {
+  "id": "18d03496-dbbe-4d75-969c-7298217e9332",
+  "rules": [
+    {
+      "id": "49d77bcd-2a23-4251-a4c4-8b7e766c6b3b",
+      "field": "user-tenant-profile.user",
+      "operator": "=",
+      "valueSource": "value",
+      "value": "$user-tenant-profile.user:jwt.user@id"
+    }
+  ],
+  "combinator": "and",
+  "not": false
+},
+  required: [],
+  queryMongodb: `{"user-tenant-profile.user":"$user-tenant-profile.user:jwt.user@id"}`,
+  locale: null,
+  locale_id: null,
+  tenant_id: "674028d2611a654e763a73e8",
+  documents: [],
+  body: null,
+  categories: [],
+  headers: null,
+  logged: true,
+  params: null,
+} as const;
+
+export type IsuseractiveintenantConfig = typeof ISUSERACTIVEINTENANT;
