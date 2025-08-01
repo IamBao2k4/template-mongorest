@@ -1,0 +1,354 @@
+{
+  "_id": "681ad170fa59b263ad3e2fa4",
+  "title": "mge tweet social event",
+  "mongodb_collection_name": "mge-tweet-social-event",
+  "json_schema": {
+    "type": "object",
+    "properties": {
+      "title": {
+        "title": "Tiêu đề",
+        "type": "string",
+        "widget": "shortAnswer",
+        "filter": true,
+        "description": "Nhập tiêu đề cho bài viết"
+      },
+      "slug": {
+        "widget": "UriKeyGen",
+        "title": "Slug",
+        "type": "string",
+        "depend_field": "root_title",
+        "description": "Nhập slug cho bài viết"
+      },
+      "short_description": {
+        "title": "Mô tả ngắn",
+        "type": "string",
+        "widget": "shortAnswer",
+        "description": "Nhập mô tả ngắn cho bài viết"
+      },
+      "featured_image": {
+        "type": "string",
+        "widget": "file",
+        "title": "Ảnh đại diện",
+        "description": "Tải ảnh đại diện cho bài viết"
+      },
+      "social_group": {
+        "title": "Nhóm",
+        "type": "string",
+        "widget": "relation",
+        "typeRelation": {
+          "title": "mge-group",
+          "_id": "mge-group",
+          "type": "n-1",
+          "filter": {
+            "combinator": "and",
+            "rules": [],
+            "id": "d83045e6-9377-44e9-9055-2f7cca78b21d"
+          }
+        },
+        "description": "Chọn nhóm đăng bài viết"
+      },
+      "categories": {
+        "title": "Danh mục",
+        "type": "string",
+        "widget": "relation",
+        "typeRelation": {
+          "title": "mge-group-category",
+          "_id": "mge-group-category",
+          "type": "n-1",
+          "filter": {
+            "combinator": "and",
+            "rules": [],
+            "id": "ae6a180c-d72b-40ef-978d-334b9b9a28b1"
+          }
+        }
+      },
+      "tag": {
+        "title": "Tag",
+        "type": "string",
+        "widget": "relation",
+        "typeRelation": {
+          "title": "mge-social-tag",
+          "_id": "mge-social-tag",
+          "type": "1-n",
+          "filter": {
+            "combinator": "and",
+            "rules": [],
+            "id": "aa107260-d2ed-49e6-b023-127d5ee412e1"
+          }
+        },
+        "description": "Chọn tag cho bài viết"
+      },
+      "approved_by": {
+        "title": "approved_by",
+        "type": "string",
+        "widget": "relation",
+        "typeRelation": {
+          "title": "user",
+          "_id": "user",
+          "type": "n-1",
+          "filter": {
+            "combinator": "and",
+            "rules": [],
+            "id": "ce657ad3-3800-4d0f-a1ec-a19c066935a6"
+          }
+        },
+        "hidden": true
+      },
+      "approved_at": {
+        "title": "approved_at",
+        "type": "string",
+        "widget": "dateTime",
+        "displayFormat": "yyyy/MM/dd HH:mm:ss",
+        "formatDate": "date-time",
+        "disabled": false,
+        "field": "single",
+        "mode": "dateTime",
+        "hidden": true
+      },
+      "comment_off": {
+        "title": "Tắt comment",
+        "type": "string",
+        "default": false,
+        "widget": "boolean",
+        "appearance": "switch",
+        "description": "Tắt tính năng bình luận cho bài viết"
+      },
+      "like_off": {
+        "title": "Tắt like",
+        "type": "string",
+        "default": false,
+        "widget": "boolean",
+        "description": "Tắt tính năng like cho bài viết"
+      },
+      "status": {
+        "title": "status",
+        "type": "string",
+        "widget": "select",
+        "choices": [
+          {
+            "key": "ACTIVE",
+            "value": "active"
+          },
+          {
+            "key": "DELETED",
+            "value": "deleted"
+          },
+          {
+            "key": "APPROVE",
+            "value": "approve"
+          },
+          {
+            "key": "HIDDEN",
+            "value": "hidden"
+          },
+          {
+            "key": "DRAFT",
+            "value": "draft"
+          },
+          {
+            "key": "ARCHIVE",
+            "value": "archive"
+          },
+          {
+            "key": "WAITING",
+            "value": "waiting"
+          },
+          {
+            "key": "REJECT",
+            "value": "reject"
+          },
+          {
+            "key": "SEND TO REVIEW",
+            "value": "send_to_review"
+          }
+        ],
+        "hidden": true
+      },
+      "tweet_waiting_time": {
+        "title": "Lên lịch",
+        "type": "string",
+        "widget": "dateTime",
+        "displayFormat": "yyyy/MM/dd HH:mm:ss",
+        "formatDate": "date-time",
+        "disabled": false,
+        "field": "single",
+        "mode": "dateTime",
+        "description": "Lên lịch thời gian đăng bài viết"
+      },
+      "event_start_time": {
+        "title": "Thời gian bắt đầu sự kiện",
+        "type": "string",
+        "widget": "dateTime",
+        "displayFormat": "yyyy/MM/dd HH:mm:ss",
+        "formatDate": "date-time",
+        "disabled": false,
+        "field": "single",
+        "mode": "dateTime"
+      },
+      "event_end_time": {
+        "type": "string",
+        "widget": "dateTime",
+        "displayFormat": "yyyy/MM/dd HH:mm:ss",
+        "formatDate": "date-time",
+        "disabled": false,
+        "field": "single",
+        "mode": "dateTime",
+        "title": "Thời gian kết thúc sự kiện"
+      },
+      "event_type": {
+        "title": "Loại sự kiện",
+        "type": "string",
+        "widget": "select",
+        "choices": [
+          {
+            "key": "Online",
+            "value": "online"
+          },
+          {
+            "key": "Offline",
+            "value": "offline"
+          }
+        ]
+      }
+    },
+    "required": [
+      "title",
+      "slug"
+    ],
+    "dependencies": {
+      "event_type": {
+        "oneOf": [
+          {
+            "properties": {
+              "event_type": {
+                "enum": [
+                  "offline"
+                ]
+              },
+              "event_location": {
+                "type": "string",
+                "widget": "shortAnswer",
+                "title": "Địa điểm tổ chức sự kiện"
+              }
+            },
+            "required": []
+          },
+          {
+            "properties": {
+              "event_type": {
+                "enum": [
+                  "online"
+                ]
+              },
+              "event_link": {
+                "type": "string",
+                "widget": "shortAnswer",
+                "title": "Link sự kiện"
+              }
+            },
+            "required": []
+          }
+        ]
+      }
+    }
+  },
+  "ui_schema": {
+    "title": {
+      "ui:widget": "shortAnswer"
+    },
+    "slug": {
+      "ui:widget": "UriKeyGen"
+    },
+    "short_description": {
+      "ui:widget": "shortAnswer"
+    },
+    "featured_image": {
+      "ui:widget": "file"
+    },
+    "social_group": {
+      "ui:widget": "relation"
+    },
+    "categories": {
+      "ui:widget": "relation"
+    },
+    "tag": {
+      "ui:widget": "relation"
+    },
+    "approved_by": {
+      "ui:widget": "relation"
+    },
+    "approved_at": {
+      "ui:widget": "dateTime"
+    },
+    "comment_off": {
+      "ui:widget": "boolean"
+    },
+    "like_off": {
+      "ui:widget": "boolean"
+    },
+    "status": {
+      "ui:widget": "select"
+    },
+    "tweet_waiting_time": {
+      "ui:widget": "dateTime"
+    },
+    "event_start_time": {
+      "ui:widget": "dateTime"
+    },
+    "event_end_time": {
+      "ui:widget": "dateTime"
+    },
+    "event_type": {
+      "ui:widget": "select"
+    },
+    "event_location": {
+      "ui:widget": "shortAnswer"
+    },
+    "event_link": {
+      "ui:widget": "shortAnswer"
+    },
+    "ui:order": [
+      "title",
+      "slug",
+      "short_description",
+      "featured_image",
+      "social_group",
+      "categories",
+      "tag",
+      "approved_by",
+      "approved_at",
+      "comment_off",
+      "like_off",
+      "status",
+      "tweet_waiting_time",
+      "event_start_time",
+      "event_end_time",
+      "event_type",
+      "event_location",
+      "event_link"
+    ]
+  },
+  "languages": [],
+  "is_active": true,
+  "use_locale": false,
+  "use_parent": false,
+  "use_parent_delete_childs": false,
+  "use_block": false,
+  "use_content_review": false,
+  "use_like": false,
+  "use_comment": false,
+  "use_save": false,
+  "use_seo_path": false,
+  "entity_group": [
+    "674e8bdf2f536fda4192c8e1"
+  ],
+  "entity_setting": {
+    "merge_collection": "mge-tweet",
+    "type": "event"
+  },
+  "created_at": "2025-05-07T03:20:16.100Z",
+  "__v": 0,
+  "type": "event",
+  "id": "681ad170fa59b263ad3e2fa4",
+  "unique_keys": ""
+}

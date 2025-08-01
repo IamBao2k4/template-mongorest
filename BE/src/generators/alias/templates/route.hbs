@@ -1,0 +1,24 @@
+import { FastifyInstance } from 'fastify';
+import { {{controllerName}} } from './{{controllerFile}}';
+
+export async function {{routeName}}(fastify: FastifyInstance) {
+  const controller = new {{controllerName}}();
+
+{{#each routes}}
+{{#if (eq method "get-list")}}
+  fastify.get('/list/{{../basePath}}', controller.getList.bind(controller));
+{{/if}}
+{{#if (eq method "get-detail")}}
+  fastify.get('/{{../basePath}}/:id', controller.getDetail.bind(controller));
+{{/if}}
+{{#if (eq method "post")}}
+  fastify.post('/{{../basePath}}', controller.create.bind(controller));
+{{/if}}
+{{#if (eq method "put")}}
+  fastify.put('/{{../basePath}}/:id', controller.update.bind(controller));
+{{/if}}
+{{#if (eq method "delete")}}
+  fastify.delete('/{{../basePath}}/:id', controller.delete.bind(controller));
+{{/if}}
+{{/each}}
+}

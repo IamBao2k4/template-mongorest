@@ -1,0 +1,8 @@
+services:
+  frontend:
+    image: caucalamdev/mgs_dev_build:deal-2025-frontend
+    restart: unless-stopped
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./public:/public

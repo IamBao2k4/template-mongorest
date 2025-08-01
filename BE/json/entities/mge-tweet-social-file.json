@@ -1,0 +1,362 @@
+{
+  "_id": "68188ea9753574930d6110a1",
+  "title": "mge tweet social file",
+  "mongodb_collection_name": "mge-tweet-social-file",
+  "json_schema": {
+    "type": "object",
+    "properties": {
+      "title": {
+        "title": "Tiêu đề",
+        "type": "string",
+        "widget": "shortAnswer",
+        "filter": true,
+        "description": "Nhập tiêu đề cho bài viết"
+      },
+      "slug": {
+        "title": "Slug",
+        "type": "string",
+        "widget": "UriKeyGen",
+        "depend_field": "root_title",
+        "filter": true,
+        "description": "Nhập slug cho bài viết"
+      },
+      "short_description": {
+        "title": "Mô tả ngắn",
+        "type": "string",
+        "widget": "shortAnswer"
+      },
+      "featured_image": {
+        "type": "string",
+        "widget": "file",
+        "title": "Ảnh đại diện"
+      },
+      "attachments": {
+        "items": {
+          "type": "object",
+          "properties": {
+            "attachment": {
+              "widget": "shortAnswer",
+              "type": "string",
+              "title": "Tài liệu"
+            },
+            "type": {
+              "title": "type",
+              "type": "string",
+              "widget": "select",
+              "choices": [
+                {
+                  "key": "PDF",
+                  "value": "pdf"
+                },
+                {
+                  "key": "DOCX",
+                  "value": "docx"
+                },
+                {
+                  "key": "PPTX",
+                  "value": "pptx"
+                },
+                {
+                  "key": "XLSX",
+                  "value": "xlsx"
+                },
+                {
+                  "key": "PNG",
+                  "value": "png"
+                },
+                {
+                  "key": "JPG",
+                  "value": "jpg"
+                },
+                {
+                  "key": "MP4",
+                  "value": "mp4"
+                },
+                {
+                  "key": "MP3",
+                  "value": "mp3"
+                }
+              ],
+              "hidden": true
+            }
+          },
+          "required": []
+        },
+        "type": "array",
+        "filter": true,
+        "title": "Tệp đính kèm",
+        "description": "Tải các tệp đính kèm "
+      },
+      "social_group": {
+        "title": "Nhóm",
+        "type": "string",
+        "widget": "relation",
+        "typeRelation": {
+          "title": "mge-group",
+          "_id": "mge-group",
+          "type": "n-1",
+          "filter": {
+            "combinator": "and",
+            "rules": [],
+            "id": "365f4650-4448-476d-8347-a73aa60fe482"
+          }
+        },
+        "filter": true,
+        "description": "Chọn nhóm đăng bài"
+      },
+      "categories": {
+        "title": "Danh mục",
+        "type": "string",
+        "widget": "relation",
+        "typeRelation": {
+          "title": "mge-group-category",
+          "_id": "mge-group-category",
+          "type": "n-1",
+          "filter": {
+            "combinator": "and",
+            "rules": [],
+            "id": "bd0fbf3e-999b-4760-9485-f6acba6b1220"
+          }
+        },
+        "description": "Chọn danh mục cho bài viết"
+      },
+      "tag": {
+        "title": "Tag",
+        "type": "string",
+        "widget": "relation",
+        "typeRelation": {
+          "title": "mge-social-tag",
+          "_id": "mge-social-tag",
+          "type": "n-1",
+          "filter": {
+            "combinator": "and",
+            "rules": [],
+            "id": "b7a9e9fe-01e9-463f-b8bf-1363b782ae60"
+          }
+        },
+        "description": "Chọn tag cho bài viết"
+      },
+      "approve_by": {
+        "title": "approved_by",
+        "type": "string",
+        "widget": "relation",
+        "typeRelation": {
+          "title": "user",
+          "_id": "user",
+          "type": "n-1",
+          "filter": {
+            "combinator": "and",
+            "rules": [],
+            "id": "4f13cae0-0104-4d59-b0cd-d8cc14368066"
+          }
+        },
+        "hidden": true
+      },
+      "approved_at": {
+        "title": "approved_at",
+        "type": "string",
+        "widget": "dateTime",
+        "displayFormat": "yyyy/MM/dd HH:mm:ss",
+        "formatDate": "date-time",
+        "disabled": false,
+        "field": "single",
+        "mode": "dateTime",
+        "hidden": true
+      },
+      "comment_off": {
+        "title": "Tắt bình luận",
+        "type": "string",
+        "default": false,
+        "widget": "boolean",
+        "hidden": false,
+        "description": "Tắt tính năng bình luận",
+        "appearance": "switch"
+      },
+      "like_off": {
+        "title": "Tắt like",
+        "type": "string",
+        "default": false,
+        "widget": "boolean",
+        "description": "Tắt tính năng like bài viết",
+        "appearance": "switch"
+      },
+      "status": {
+        "title": "status",
+        "type": "string",
+        "widget": "select",
+        "choices": [
+          {
+            "key": "ACTIVE",
+            "value": "active"
+          },
+          {
+            "key": "DELETED",
+            "value": "deleted"
+          },
+          {
+            "key": "APPROVE",
+            "value": "approve"
+          },
+          {
+            "key": "HIDDEN",
+            "value": "hidden"
+          },
+          {
+            "key": "DRAFT",
+            "value": "draft"
+          },
+          {
+            "key": "ARCHIVE",
+            "value": "archive"
+          },
+          {
+            "key": "WAITING",
+            "value": "waiting"
+          },
+          {
+            "key": "REJECT",
+            "value": "reject"
+          },
+          {
+            "key": "SEND TO REVIEW",
+            "value": "send_to_review"
+          }
+        ],
+        "hidden": true
+      },
+      "report_tweet_off": {
+        "title": "report_tweet_off",
+        "type": "string",
+        "default": false,
+        "widget": "boolean",
+        "hidden": true
+      },
+      "report_comment_off": {
+        "title": "report_comment_off",
+        "type": "string",
+        "default": false,
+        "widget": "boolean",
+        "hidden": true
+      },
+      "tweet_waiting_time": {
+        "title": "Lên lịch",
+        "type": "string",
+        "widget": "dateTime",
+        "displayFormat": "yyyy/MM/dd HH:mm:ss",
+        "formatDate": "date-time",
+        "disabled": false,
+        "field": "single",
+        "mode": "dateTime",
+        "description": "Lên lịch thời gian đăng bài viết"
+      }
+    },
+    "required": [
+      "title",
+      "slug",
+      "attachments",
+      "social_group"
+    ]
+  },
+  "ui_schema": {
+    "title": {
+      "ui:widget": "shortAnswer"
+    },
+    "slug": {
+      "ui:widget": "UriKeyGen"
+    },
+    "short_description": {
+      "ui:widget": "shortAnswer"
+    },
+    "featured_image": {
+      "ui:widget": "file"
+    },
+    "attachments": {
+      "items": {
+        "attachment": {
+          "ui:widget": "shortAnswer"
+        },
+        "type": {
+          "ui:widget": "select"
+        },
+        "ui:order": [
+          "attachment",
+          "type"
+        ]
+      }
+    },
+    "social_group": {
+      "ui:widget": "relation"
+    },
+    "categories": {
+      "ui:widget": "relation"
+    },
+    "tag": {
+      "ui:widget": "relation"
+    },
+    "approve_by": {
+      "ui:widget": "relation"
+    },
+    "approved_at": {
+      "ui:widget": "dateTime"
+    },
+    "comment_off": {
+      "ui:widget": "boolean"
+    },
+    "like_off": {
+      "ui:widget": "boolean"
+    },
+    "status": {
+      "ui:widget": "select"
+    },
+    "report_tweet_off": {
+      "ui:widget": "boolean"
+    },
+    "report_comment_off": {
+      "ui:widget": "boolean"
+    },
+    "tweet_waiting_time": {
+      "ui:widget": "dateTime"
+    },
+    "ui:order": [
+      "title",
+      "slug",
+      "short_description",
+      "featured_image",
+      "attachments",
+      "social_group",
+      "categories",
+      "tag",
+      "approve_by",
+      "approved_at",
+      "comment_off",
+      "like_off",
+      "status",
+      "report_tweet_off",
+      "report_comment_off",
+      "tweet_waiting_time"
+    ]
+  },
+  "languages": [],
+  "is_active": true,
+  "use_locale": false,
+  "use_parent": false,
+  "use_parent_delete_childs": false,
+  "use_block": false,
+  "use_content_review": false,
+  "use_like": false,
+  "use_comment": false,
+  "use_save": false,
+  "use_seo_path": false,
+  "entity_group": [
+    "674e8bdf2f536fda4192c8e1"
+  ],
+  "entity_setting": {
+    "merge_collection": "mge-tweet",
+    "type": "file"
+  },
+  "created_at": "2025-05-05T10:10:49.777Z",
+  "__v": 0,
+  "type": "file",
+  "unique_keys": "",
+  "id": "68188ea9753574930d6110a1"
+}

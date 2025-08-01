@@ -1,0 +1,38 @@
+export const {{constantCase title}} = {
+  _id: "{{_id}}",
+  title: "{{{title}}}",
+  {{#if note}}
+  note: "{{{note}}}",
+  {{/if}}
+  {{#if cache_time}}
+  cache_time: "{{cache_time}}",
+  {{/if}}
+  method: "{{method}}",
+  locale: {{#if locale}}"{{locale}}"{{else}}null{{/if}},
+  locale_id: {{#if locale_id}}"{{locale_id}}"{{else}}null{{/if}},
+  outputEntity: {{#if outputEntity}}{{{json outputEntity}}}{{else}}[]{{/if}},
+  queryAdvance: `{{#if queryAdvance}}{{{queryAdvance}}}{{else}}{}{{/if}}`,
+  categories: {{#if categories}}{{{json categories}}}{{else}}[]{{/if}},
+  tenant_id: "{{#if tenant_id}}{{tenant_id}}{{else}}{{/if}}",
+  documents: {{#if documents}}{{{json documents}}}{{else}}[]{{/if}},
+  {{#if body}}
+  body: {{{json body}}},
+  {{else}}
+  body: null,
+  {{/if}}
+  params: {{#if params}}{{{json params}}}{{else}}[]{{/if}},
+  headers: {{#if headers}}{{{json headers}}}{{else}}[]{{/if}},
+  {{#if data}}
+  data: {{{json data}}},
+  {{/if}}
+  restricted: {{#if restricted}}{{{json restricted}}}{{else}}[]{{/if}},
+  id: "{{#if id}}{{id}}{{else}}{{/if}}",
+  {{#if postQueryAdvance}}
+  postQueryAdvance: `{{{postQueryAdvance}}}`,
+  {{/if}}
+  {{#if preQueryAdvance}}
+  preQueryAdvance: `{{{preQueryAdvance}}}`,
+  {{/if}}
+} as const;
+
+export type {{cleanPascalCase title}}Config = typeof {{constantCase title}};

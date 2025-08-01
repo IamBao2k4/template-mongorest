@@ -1,0 +1,69 @@
+import { FastifyRequest, FastifyReply } from 'fastify';
+import { Custom{{serviceName}} } from '../../customs/{{serviceFile}}';
+
+export class {{controllerName}} {
+  private service: Custom{{serviceName}};
+
+  constructor() {
+    this.service = new Custom{{serviceName}}();
+  }
+
+{{#each routes}}
+{{#if (eq method "get-list")}}
+  async getList(request: FastifyRequest, reply: FastifyReply): Promise<void> {
+    try {
+      const result = await this.service.getList(request);
+      reply.send(result);
+    } catch (error) {
+      reply.send(error);
+    }
+  }
+{{/if}}
+
+{{#if (eq method "get-detail")}}
+  async getDetail(request: FastifyRequest, reply: FastifyReply): Promise<void> {
+    try {
+      const result = await this.service.getDetail(request);
+      reply.send(result);
+    } catch (error) {
+      reply.send(error);
+    }
+  }
+{{/if}}
+
+{{#if (eq method "post")}}
+  async create(request: FastifyRequest, reply: FastifyReply): Promise<void> {
+    try {
+      const result = await this.service.create(request);
+      reply.code(201).send(result);
+    } catch (error) {
+      reply.send(error);
+    }
+  }
+{{/if}}
+
+{{#if (eq method "put")}}
+  async update(request: FastifyRequest, reply: FastifyReply): Promise<void> {
+    try {
+      const result = await this.service.update(request);
+      reply.send(result);
+    } catch (error) {
+      reply.send(error);
+    }
+  }
+{{/if}}
+
+{{#if (eq method "delete")}}
+  async delete(request: FastifyRequest, reply: FastifyReply): Promise<void> {
+    try {
+      const result = await this.service.delete(request);
+      reply.send(result);
+    } catch (error) {
+      reply.send(error);
+    }
+  }
+{{/if}}
+{{/each}}
+
+  // Custom methods can be added here
+}

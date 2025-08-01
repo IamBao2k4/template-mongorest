@@ -1,0 +1,54 @@
+{
+  "social-group-categories": {},
+  "get-detail": {
+    "headers": [],
+    "params": [],
+    "body": []
+  },
+  "get-tree": {
+    "headers": [],
+    "params": [],
+    "body": [],
+    "validate": [
+      {
+        "notification": {},
+        "response": {
+          "_id": "68708a85879efc9e6a322057",
+          "title": "get tree",
+          "entity": "mge-group-category",
+          "path_file": "json/response/68708a85879efc9e6a322057.json"
+        },
+        "query_validate": {
+          "combinator": "and",
+          "rules": [],
+          "id": "d7107662-84e3-4e10-a0a4-34d3c23f4620"
+        },
+        "list_validate": [],
+        "custom_filter": {
+          "rules": []
+        }
+      }
+    ]
+  },
+  "set-tree": {
+    "headers": [],
+    "params": [],
+    "body": [],
+    "validate": [
+      {
+        "notification": {},
+        "response": {
+          "_id": "6870bc26e402e2a4ec285ba2",
+          "title": "set tree group categories",
+          "entity": "mge-group-category",
+          "path_file": "json/response/6870bc26e402e2a4ec285ba2.json"
+        },
+        "query_validate": {},
+        "list_validate": [],
+        "custom_filter": {
+          "rules": []
+        }
+      }
+    ]
+  }
+}

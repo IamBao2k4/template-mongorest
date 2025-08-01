@@ -1,0 +1,121 @@
+{
+  "_id": "683e64f5f75b9891a43fbdfc",
+  "title": "Test entity",
+  "mongodb_collection_name": "test-entity",
+  "json_schema": {
+    "type": "object",
+    "expanded": true,
+    "properties": {
+      "email": {
+        "title": "email",
+        "type": "string",
+        "widget": "shortAnswer"
+      },
+      "_id": {
+        "title": "_id",
+        "type": "string",
+        "widget": "shortAnswer"
+      },
+      "name": {
+        "title": "name",
+        "type": "string",
+        "widget": "shortAnswer"
+      },
+      "profile ": {
+        "title": "profile",
+        "type": "object",
+        "properties": {
+          "age": {
+            "title": "age",
+            "type": "string",
+            "widget": "numberInput"
+          },
+          "interests": {
+            "items": {
+              "type": "object",
+              "title": ""
+            },
+            "title": "interests",
+            "type": "array"
+          },
+          "avatar": {
+            "title": "avatar",
+            "type": "string",
+            "widget": "shortAnswer"
+          }
+        },
+        "required": []
+      },
+      "status": {
+        "title": "status",
+        "type": "string",
+        "widget": "shortAnswer"
+      },
+      "lastLogin": {
+        "title": "lastLogin",
+        "type": "string",
+        "widget": "dateTime",
+        "displayFormat": "yyyy/MM/dd HH:mm:ss",
+        "formatDate": "date-time",
+        "disabled": false,
+        "field": "single",
+        "mode": "dateTime"
+      }
+    },
+    "required": []
+  },
+  "ui_schema": {
+    "email": {
+      "ui:widget": "shortAnswer"
+    },
+    "_id": {
+      "ui:widget": "shortAnswer"
+    },
+    "name": {
+      "ui:widget": "shortAnswer"
+    },
+    "profile ": {
+      "age": {
+        "ui:widget": "numberInput"
+      },
+      "avatar": {
+        "ui:widget": "shortAnswer"
+      },
+      "ui:order": [
+        "age",
+        "interests",
+        "avatar"
+      ]
+    },
+    "status": {
+      "ui:widget": "shortAnswer"
+    },
+    "lastLogin": {
+      "ui:widget": "dateTime"
+    },
+    "ui:order": [
+      "email",
+      "_id",
+      "name",
+      "profile ",
+      "status",
+      "lastLogin"
+    ]
+  },
+  "languages": [],
+  "is_active": true,
+  "use_locale": false,
+  "use_parent": false,
+  "use_parent_delete_childs": false,
+  "use_block": false,
+  "use_content_review": false,
+  "use_like": false,
+  "use_comment": false,
+  "use_save": false,
+  "use_seo_path": false,
+  "entity_group": null,
+  "created_at": "2025-06-03T02:59:01.931Z",
+  "__v": 0,
+  "id": "683e64f5f75b9891a43fbdfc",
+  "unique_keys": ""
+}

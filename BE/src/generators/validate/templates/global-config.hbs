@@ -1,0 +1,48 @@
+export const {{constantCase title}} = {
+  _id: "{{_id}}",
+  title: "{{{title}}}",
+  {{#if note}}
+  note: "{{{note}}}",
+  {{/if}}
+  entity: {{#if entity}}{{{json entity}}}{{else}}[]{{/if}},
+  data: {{#if data}}{{{json data}}}{{else}}{}{{/if}},
+  required: {{#if required}}{{{json required}}}{{else}}[]{{/if}},
+  queryMongodb: `{{#if queryMongodb}}{{{queryMongodb}}}{{else}}{}{{/if}}`,
+  locale: {{#if locale}}"{{locale}}"{{else}}null{{/if}},
+  locale_id: {{#if locale_id}}"{{locale_id}}"{{else}}null{{/if}},
+  tenant_id: "{{#if tenant_id}}{{tenant_id}}{{else}}{{/if}}",
+  {{#if group_id}}
+  group_id: {{#if group_id}}"{{group_id}}"{{else}}null{{/if}},
+  {{/if}}
+  {{#if advance}}
+  advance: `{{{advance}}}`,
+  {{/if}}
+  documents: {{#if documents}}{{{json documents}}}{{else}}[]{{/if}},
+  {{#if body}}
+  body: {{{json body}}},
+  {{else}}
+  body: null,
+  {{/if}}
+  categories: {{#if categories}}{{{json categories}}}{{else}}[]{{/if}},
+  {{#if error_code}}
+  error_code: {{#if error_code}}"{{error_code}}"{{else}}null{{/if}},
+  {{/if}}
+  {{#if headers}}
+  headers: {{{json headers}}},
+  {{else}}
+  headers: null,
+  {{/if}}
+  {{#if logged}}
+  logged: {{logged}},
+  {{/if}}
+  {{#if params}}
+  params: {{{json params}}},
+  {{else}}
+  params: null,
+  {{/if}}
+  {{#if pre}}
+  pre: `{{{pre}}}`,
+  {{/if}}
+} as const;
+
+export type {{cleanPascalCase title}}Config = typeof {{constantCase title}};
